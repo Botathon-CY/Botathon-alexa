@@ -250,7 +250,7 @@ function decodePredictiveParkingResponseText(jsonData) {
 
     if (totalSpaces === 0) {
         return {
-            "name": hospitalName + " (" + confidence + "% confident)",
+            "name": hospitalName,
             "text": "There will be no car parking spaces available at " + hospitalName + " at " + time + " on " + date + " (" + confidence + "% confident)"
         }
     }
@@ -263,7 +263,7 @@ function decodePredictiveParkingResponseText(jsonData) {
     }
 
     return {
-        "name": hospitalName + " (" + confidence + "% confident)",
+        "name": hospitalName,
         "text": totalSpaces + " total spaces at " + time + " on " + date + "\n\n" + areaSpeech + "\n\n"
     };
 }
