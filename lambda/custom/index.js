@@ -2,11 +2,8 @@
 
 const https = require('https');
 const Alexa = require('ask-sdk-core');
-
-
-let hospitalName = 'morriston';
-
 const { getSlotValue } = require('ask-sdk-core');
+
 ////////////////////////////////
 // Code for the handlers here //
 ////////////////////////////////
@@ -24,6 +21,7 @@ const LaunchRequestHandler = {
     }
 };
 
+//{i want to|is there|are there|any|can i|how many|how much|}{park|parking|space|spaces}{is|are|}{at|in|by|}{{hospital}}
 const HospitalParkingIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -105,7 +103,7 @@ function decodeParkingResponseSpeech(jsonData) {
     if (areas !== null && areas !== 'undefined') {
 
         areas.forEach(function (area) {
-            const speech = "In the " + area.name + " car park, there are " + area.spaces + " spaces remaining. ";
+            const speech = "In the " + area.name + " car park, there are " + area.spaces + " spaces. ";
             areaSpeech = areaSpeech + speech;
         });
     }
@@ -138,9 +136,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
     .addRequestHandlers(
         LaunchRequestHandler,
-        HelloWorldIntentHandler,
-        HospitalParkingIntentHandler,
-        DynamoIntentHandler
+        HospitalParkingIntentHandler
     )
     .addErrorHandlers(ErrorHandler)
     .lambda();
