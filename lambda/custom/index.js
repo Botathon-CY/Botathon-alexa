@@ -21,7 +21,7 @@ const LaunchRequestHandler = {
     }
 };
 
-//{i want to|is there|are there|any|can i|how many|how much|}{park|parking|space|spaces}{is|are|}{at|in|by|}{{hospital}}
+//{i want to|is there|are there|any|can i|how many|how much|}{park|parking|space|spaces|}{is|are|}{at|in|by|}{{hospital}}{hospital|}
 const HospitalParkingIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -44,7 +44,7 @@ const HospitalParkingIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechOutput)
-            .withSimpleCard("Hospital parking", textOutput)
+            .withSimpleCard(textOutput.name + " hospital", textOutput.text)
             .getResponse();
     }
 };
@@ -59,7 +59,7 @@ const ErrorHandler = {
             .speak("Sorry, I didn't understand. Please try again.")
             .reprompt("Sorry, I didn't understand. Please try again.")
             .getResponse();
-    },
+    }
 };
 
 //////////////////////
@@ -95,37 +95,45 @@ function getCurrentSpaces(hospital) {
 }
 
 function decodeParkingResponseSpeech(jsonData) {
-    const name = jsonData.name;
+    const  hospitalName = jsonData.name;
     const areas = jsonData.parking_areas;
-    const total = jsonData.total_space;
+    const totalSpaces = jsonData.total_space;
+
+    if (totalSpaces === 0) {
+        return "All car parking spaces are full at " + hospitalName + " hospital.";
+    }
 
     let areaSpeech = "";
     if (areas !== null && areas !== 'undefined') {
-
         areas.forEach(function (area) {
             const speech = "In the " + area.name + " car park, there are " + area.spaces + " spaces. ";
             areaSpeech = areaSpeech + speech;
         });
     }
-
-    return "In " + name + " hospital, there are " + total + " spaces remaining.\n\n" + areaSpeech;
+    return "In " + hospitalName + " hospital, there are " + totalSpaces + " spaces remaining.\n\n" + areaSpeech;
 }
 
 function decodeParkingResponseText(jsonData) {
-    const name = jsonData.name;
+    let hospitalName = jsonData.name;
+    hospitalName = hospitalName[0].toUpperCase() + hospitalName.slice(1);
     const areas = jsonData.parking_areas;
-    const total = jsonData.total_space;
+    const totalSpaces = jsonData.total_space;
+
+    if (totalSpaces === 0) {
+        return "All car parking spaces are full at " + hospitalName + " hospital.";
+    }
 
     let areaSpeech = "";
     if (areas !== null && areas !== 'undefined') {
         areas.forEach(function (area) {
-            areaSpeech = areaSpeech + area.name + ": " + area.space + "\n";
+            areaSpeech = areaSpeech + area.name + " car park: " + area.spaces + "\n";
         });
     }
 
-    return "Parking spaces in " + name + ": " + total + "\n\n" +
-        "Car parks: \n\n" +
-        areaSpeech;
+    return {
+        "name": hospitalName,
+        "text": totalSpaces + " total spaces\n\n" + areaSpeech
+    };
 }
 
 ////////////////////////////////////
