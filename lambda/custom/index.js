@@ -42,30 +42,21 @@ const DynamoIntentHandler = {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'DynamoIntent';
     },
-    handle(handlerInput) {
-        //TODO Dynamic endpoint based on what was said!!
-        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/current/' + hospitalName, (resp) => {
-            let data = '';
+    async handle(handlerInput) {
+        let speechOutput;
 
-            resp.on('data', (chunk) => {
-                data += chunk;
+        await getCurrentSpaces(hospitalName)
+            .then((response) => {
+                console.log(response);
+                speechOutput = response;
+            })
+            .catch((err) => {
+                ErrorHandler.handle(handlerInput, err);
             });
 
-            resp.on('end', () => {
-                if (resp.statusCode === 200) {
-                    try {
-                        const speechOutput = decodeParkingResponse(JSON.parse(data));
-                        return handlerInput.responseBuilder.speak(speechOutput);
-                    } catch (e) {
-                        return ErrorHandler.handle(handlerInput, {"message": "I'm having trouble understanding the response. Please try again later."})
-                    }
-                }
-
-                return ErrorHandler.handle(handlerInput, {"message": "I'm unable to get the data right now. Please try again later."})
-            });
-        }).on("error", (err) => {
-            return ErrorHandler.handle(handlerInput, err)
-        });
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
     }
 };
 
@@ -100,6 +91,30 @@ const ErrorHandler = {
 // Helper functions //
 //////////////////////
 
+function getCurrentSpaces(hospital) {
+    return new Promise((resolve, reject) => {
+        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/current/' + hospital, (resp) => {
+            let data = '';
+
+            resp.on('data', (chunk) => {
+                data += chunk;
+            });
+            resp.on('end', () => {
+                if (resp.statusCode === 200) {
+                    try {
+                        resolve(decodeParkingResponse(JSON.parse(data)));
+                    } catch (e) {
+                        reject({"message": "I'm having trouble understanding the response. Please try again later."});
+                    }
+                }
+                reject({"message": "I'm unable to get the data right now. Please try again later."});
+            });
+        }).on("error", (err) => {
+            reject(err);
+        });
+    });
+}
+
 function decodeParkingResponse(jsonData) {
     console.log(jsonData);
     const name = jsonData.name;
@@ -108,9 +123,10 @@ function decodeParkingResponse(jsonData) {
 
     let areaSpeech = "";
     if (areas !== null && areas !== 'undefined') {
+
         areas.forEach(function (area) {
-            const speech = "In the " + area.name + " car park, there are " + area.spaces + " spaces remaining.";
-            areaSpeech += speech;
+            const speech = "In the " + area.name + " car park, there are " + area.spaces + " spaces remaining. ";
+            areaSpeech = areaSpeech + speech;
         });
     }
 
