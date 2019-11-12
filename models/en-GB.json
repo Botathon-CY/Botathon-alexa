@@ -1,59 +1,71 @@
 {
   "interactionModel": {
-      "languageModel": {
-          "invocationName": "hospital parking",
-          "intents": [
-              {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-              },
-              {
-                  "name": "HelloWorldIntent",
-                  "slots": [],
-                  "samples": [
-                      "hello",
-                      "how are you",
-                      "say hi world",
-                      "say hi",
-                      "hi",
-                      "say hello world",
-                      "say hello"
-                  ]
-              },
-              {
-                "name": "HospitalParkingIntent",
-                "slots": [{
-                  "name": "hospital",
-                  "type": "LIST_OF_HOSPITALS"
-                }],
-                "samples": [
-                    "i want to park at {hospital}",
-                    "is there parking at {hospital}",
-                    "is there a parking space at {hospital}",
-                    "can i park at {hospital}",
-                    "how many spaces in {hospital}"
-                ]
-             },
-              {
-                  "name": "AMAZON.NavigateHomeIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.FallbackIntent",
-                  "samples": []
-              }
+    "languageModel": {
+      "invocationName": "hospital parking",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "HelloWorldIntent",
+          "slots": [],
+          "samples": [
+            "hello",
+            "how are you",
+            "say hi world",
+            "say hi",
+            "hi",
+            "say hello world",
+            "say hello"
+          ]
+        },
+        {
+          "name": "HospitalParkingIntent",
+          "slots": [
+            {
+              "name": "hospital",
+              "type": "LIST_OF_HOSPITALS"
+            }
           ],
-          "types": [{
-            "name": "LIST_OF_HOSPITALS",
-            "values": [{
+          "samples": [
+            "i want to park at {hospital}",
+            "is there parking at {hospital}",
+            "is there a parking space at {hospital}",
+            "can i park at {hospital}",
+            "how many spaces in {hospital}"
+          ]
+        },
+        {
+          "name": "DynamoIntent",
+          "slots": [],
+          "samples": [
+            "get data from DB",
+            "get data"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "LIST_OF_HOSPITALS",
+          "values": [
+            {
               "name": {
                 "value": "morriston"
               }},
@@ -70,8 +82,8 @@
               
             
           ]
-      }
-          ]
+        }
+      ]
+    }
   }
-}
 }
