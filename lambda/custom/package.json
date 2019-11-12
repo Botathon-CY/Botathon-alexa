@@ -1,7 +1,7 @@
 {
-  "name": "gamebook-sample-nodejs-skill",
+  "name": "botathon-parkly-skill",
   "version": "1.0.0",
-  "description": "A text adventure skill.",
+  "description": "A hospital parking availability skill.",
   "main": "index.js",
   "dependencies": {
     "alexa-sdk": "^1.0.23",
