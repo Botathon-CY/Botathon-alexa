@@ -18,7 +18,7 @@ const LaunchRequestHandler = {
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
-            .withSimpleCard('Hello World', speechText)
+            .withSimpleCard('Hello 1234 World', speechText)
             .getResponse();
     }
 };
@@ -29,10 +29,10 @@ const HelloWorldIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const speechText = 'Hello World!';
+        const speechText = 'Hello 1234 World!';
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Hello World', speechText)
+            .withSimpleCard('Hello 1234 World', speechText)
             .getResponse();
     }
 };
@@ -49,6 +49,27 @@ const ErrorHandler = {
             .reprompt("I'm sorry, I didn't understand. Please try again.")
             .getResponse();
     },
+};
+
+let skill;
+
+exports.handler = async function (event, context) {
+  console.log(`REQUEST++++${JSON.stringify(event)}`);
+  if (!skill) {
+    skill = Alexa.SkillBuilders.custom()
+      .addRequestHandlers(
+        LaunchRequestHandler,
+        HelloWorldIntentHandler,
+        SessionEndedRequestHandler,
+      )
+      .addErrorHandlers(ErrorHandler)
+      .create();
+  }
+
+  const response = await skill.invoke(event, context);
+  console.log(`RESPONSE++++${JSON.stringify(response)}`);
+
+  return response;
 };
 
 ////////////////////////////////////
