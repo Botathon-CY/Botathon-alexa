@@ -5,9 +5,6 @@ const Alexa = require('ask-sdk-core');
 ////////////////////////////////
 // Code for the handlers here //
 ////////////////////////////////
-exports.handler = Alexa.SkillBuilders.custom()
-     .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler)
-     .lambda();
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -45,38 +42,18 @@ const ErrorHandler = {
         console.log(`Error handled: ${error.message}`);
         console.log(`Error stack: ${error.stack}`);
         return handlerInput.responseBuilder
-            .speak("I'm sorry, I didn't understand. Please try again.")
-            .reprompt("I'm sorry, I didn't understand. Please try again.")
+            .speak("Sorry, I didn't understand. Please try again.")
+            .reprompt("Sorry, I didn't understand. Please try again.")
             .getResponse();
     },
-};
-
-let skill;
-
-exports.handler = async function (event, context) {
-  console.log(`REQUEST++++${JSON.stringify(event)}`);
-  if (!skill) {
-    skill = Alexa.SkillBuilders.custom()
-      .addRequestHandlers(
-        LaunchRequestHandler,
-        HelloWorldIntentHandler,
-        SessionEndedRequestHandler,
-      )
-      .addErrorHandlers(ErrorHandler)
-      .create();
-  }
-
-  const response = await skill.invoke(event, context);
-  console.log(`RESPONSE++++${JSON.stringify(response)}`);
-
-  return response;
 };
 
 ////////////////////////////////////
 // Set up handlers within the DSK //
 ////////////////////////////////////
 
-exports.handler = Alexa.SkillBuilders.custom()
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
     .addRequestHandlers(
         LaunchRequestHandler,
         HelloWorldIntentHandler

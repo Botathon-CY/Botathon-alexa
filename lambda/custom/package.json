@@ -4,8 +4,8 @@
   "description": "A hospital parking availability skill.",
   "main": "index.js",
   "dependencies": {
-    "alexa-sdk": "^1.0.23",
     "ask-sdk-core": "^2.7.0",
+    "ask-sdk-model": "^1.23.1",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {},
