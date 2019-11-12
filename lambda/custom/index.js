@@ -34,7 +34,7 @@ const HelloWorldIntentHandler = {
     }
 };
 
-const HospitalParkingHandler = {
+const HospitalParkingIntentHandler = {
   canHandle(handlerInput) {
       return handlerInput.requestEnvelope.request.type === 'IntentRequest'
           && handlerInput.requestEnvelope.request.intent.name === 'HospitalParkingIntent';
@@ -70,7 +70,8 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
     .addRequestHandlers(
         LaunchRequestHandler,
-        HelloWorldIntentHandler
+        HelloWorldIntentHandler,
+        HospitalParkingIntentHandler
     )
     .addErrorHandlers(ErrorHandler)
     .lambda();
