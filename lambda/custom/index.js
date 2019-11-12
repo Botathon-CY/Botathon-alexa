@@ -3,8 +3,6 @@
 const https = require('https');
 const Alexa = require('ask-sdk-core');
 
-let hospitalName = 'morriston';
-
 const getSlotValue = require('ask-sdk-core');
 
 ////////////////////////////////
@@ -16,11 +14,10 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Welcome to Hospital Parking. Where do you want to check parking?!';
+        const speechText = 'Welcome to Hospital Parking. Where do you want to check parking?';
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
-            .withSimpleCard('Hello 1234 World', speechText)
             .getResponse();
     }
 };
@@ -46,11 +43,13 @@ const DynamoIntentHandler = {
     },
     async handle(handlerInput) {
         let speechOutput;
+        let textOutput;
 
         await getCurrentSpaces(hospitalName)
             .then((response) => {
                 console.log(response);
-                speechOutput = response;
+                speechOutput = response.speech;
+                textOutput = response.text;
             })
             .catch((err) => {
                 ErrorHandler.handle(handlerInput, err);
@@ -58,6 +57,7 @@ const DynamoIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechOutput)
+            .withSimpleCard("Hospital parking", textOutput)
             .getResponse();
     }
 };
@@ -67,11 +67,24 @@ const HospitalParkingIntentHandler = {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'HospitalParkingIntent';
     },
-    handle(handlerInput) {
-        const speechText = 'There is a car park ' + getSlotValue(handlerInput.requestEnvelope, 'hospital');
+    async handle(handlerInput) {
+        let speechOutput;
+        let textOutput;
+        const hospitalName = getSlotValue(handlerInput.requestEnvelope, 'hospital');
+
+        await getCurrentSpaces(hospitalName)
+            .then((response) => {
+                console.log(response);
+                speechOutput = response.speech;
+                textOutput = response.text;
+            })
+            .catch((err) => {
+                ErrorHandler.handle(handlerInput, err);
+            });
+
         return handlerInput.responseBuilder
-            .speak(speechText)
-            .withSimpleCard('Parking', speechText)
+            .speak(speechOutput)
+            .withSimpleCard("Hospital parking", textOutput)
             .getResponse();
     }
 };
@@ -104,7 +117,11 @@ function getCurrentSpaces(hospital) {
             resp.on('end', () => {
                 if (resp.statusCode === 200) {
                     try {
-                        resolve(decodeParkingResponse(JSON.parse(data)));
+
+                        resolve({
+                            "speech": decodeParkingResponseSpeech(JSON.parse(data)),
+                            "text": decodeParkingResponseText(JSON.parse(data))
+                        });
                     } catch (e) {
                         reject({"message": "I'm having trouble understanding the response. Please try again later."});
                     }
@@ -117,8 +134,7 @@ function getCurrentSpaces(hospital) {
     });
 }
 
-function decodeParkingResponse(jsonData) {
-    console.log(jsonData);
+function decodeParkingResponseSpeech(jsonData) {
     const name = jsonData.name;
     const areas = jsonData.parking_areas;
     const total = jsonData.total_space;
@@ -133,6 +149,23 @@ function decodeParkingResponse(jsonData) {
     }
 
     return "In " + name + " hospital, there are " + total + " spaces remaining.\n\n" + areaSpeech;
+}
+
+function decodeParkingResponseText(jsonData) {
+    const name = jsonData.name;
+    const areas = jsonData.parking_areas;
+    const total = jsonData.total_space;
+
+    let areaSpeech = "";
+    if (areas !== null && areas !== 'undefined') {
+        areas.forEach(function (area) {
+            areaSpeech = areaSpeech + area.name + ": " + area.space + "\n";
+        });
+    }
+
+    return "Parking spaces in " + name + ": " + total + "\n\n" +
+        "Car parks: \n\n" +
+        areaSpeech;
 }
 
 ////////////////////////////////////
