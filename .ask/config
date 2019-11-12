@@ -20,7 +20,7 @@
         },
         "interactionModel": {
           "en-GB": {
-            "eTag": "68f5dbf6b2ee5d93e8e380ac18b25505"
+            "eTag": "60877ba8ad4559eac110109ff752ca77"
           }
         },
         "lambda": [
@@ -33,7 +33,7 @@
             "codeUri": "lambda/custom",
             "functionName": "botathon-parkly",
             "handler": "index.handler",
-            "revisionId": "047bf8be-5a17-4e10-a8da-4e99280c7f7b",
+            "revisionId": "cd537274-2eb3-494f-a75f-d5572e199592",
             "runtime": "nodejs10.x"
           }
         ]

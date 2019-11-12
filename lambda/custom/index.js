@@ -3,8 +3,10 @@
 const https = require('https');
 const Alexa = require('ask-sdk-core');
 
-const getSlotValue = require('ask-sdk-core');
 
+let hospitalName = 'morriston';
+
+const { getSlotValue } = require('ask-sdk-core');
 ////////////////////////////////
 // Code for the handlers here //
 ////////////////////////////////
