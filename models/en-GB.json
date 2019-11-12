@@ -16,19 +16,6 @@
           "samples": []
         },
         {
-          "name": "HelloWorldIntent",
-          "slots": [],
-          "samples": [
-            "hello",
-            "how are you",
-            "say hi world",
-            "say hi",
-            "hi",
-            "say hello world",
-            "say hello"
-          ]
-        },
-        {
           "name": "HospitalParkingIntent",
           "slots": [
             {
@@ -42,14 +29,6 @@
             "is there a parking space at {hospital}",
             "can i park at {hospital}",
             "how many spaces in {hospital}"
-          ]
-        },
-        {
-          "name": "DynamoIntent",
-          "slots": [],
-          "samples": [
-            "get data from DB",
-            "get data"
           ]
         },
         {
@@ -68,19 +47,23 @@
             {
               "name": {
                 "value": "morriston"
-              }},
-              {
+              }
+            },
+            {
               "name": {
                 "value": "singleton"
-              }},
-              { "name": {
+              }
+            },
+            {
+              "name": {
                 "value": "glangwili"
-              }},
-              { "name": {
+              }
+            },
+            {
+              "name": {
                 "value": "prince phillip"
-              }}
-              
-            
+              }
+            }
           ]
         }
       ]

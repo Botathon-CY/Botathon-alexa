@@ -24,46 +24,6 @@ const LaunchRequestHandler = {
     }
 };
 
-const HelloWorldIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
-    },
-    handle(handlerInput) {
-        const speechText = 'Hello 1234 World!';
-        return handlerInput.responseBuilder
-            .speak(speechText)
-            .withSimpleCard('Hello 1234 World', speechText)
-            .getResponse();
-    }
-};
-
-const DynamoIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'DynamoIntent';
-    },
-    async handle(handlerInput) {
-        let speechOutput;
-        let textOutput;
-
-        await getCurrentSpaces(hospitalName)
-            .then((response) => {
-                console.log(response);
-                speechOutput = response.speech;
-                textOutput = response.text;
-            })
-            .catch((err) => {
-                ErrorHandler.handle(handlerInput, err);
-            });
-
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .withSimpleCard("Hospital parking", textOutput)
-            .getResponse();
-    }
-};
-
 const HospitalParkingIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
