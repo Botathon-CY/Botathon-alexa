@@ -1,0 +1,35 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-GB": {
+          "summary": "Find a hospital parking space",
+          "examplePhrases": [
+            "Alexa open parkly",
+            "Alexa ask parkly if there are any parking spaces?"
+          ],
+          "keywords": [
+            "reference",
+            "parking",
+            "service"
+          ],
+          "name": "Parkly",
+          "description": "In this skill you are able top check for any available parking spaces in your nearest hospital.\n\nTo start, just say \"Alexa, launch Parkly\" or \"Alexa, open Parkly\" to start\".\n\nAt anytime, you can stop by saying \"Alexa, stop\"."
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample Testing Instructions.",
+      "category": "EDUCATION_AND_REFERENCE",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/custom"
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": []
+  }
+}
