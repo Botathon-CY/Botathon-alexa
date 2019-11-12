@@ -5,8 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "ask-sdk-core": "^2.7.0",
-    "ask-sdk-model": "^1.23.1",
-    "xml2js": "^0.4.19"
+    "ask-sdk-model": "^1.23.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -16,6 +15,6 @@
     "alexa",
     "skill"
   ],
-  "author": "Amazon.com",
+  "author": "DVLA",
   "license": "Apache-2.0"
 }
