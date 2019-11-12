@@ -3,6 +3,8 @@
 const https = require('https');
 const Alexa = require('ask-sdk-core');
 
+let hospitalName = 'morriston';
+
 ////////////////////////////////
 // Code for the handlers here //
 ////////////////////////////////
@@ -42,7 +44,7 @@ const DynamoIntentHandler = {
     },
     handle(handlerInput) {
         //TODO Dynamic endpoint based on what was said!!
-        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/current/morriston', (resp) => {
+        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/current/' + hospitalName, (resp) => {
             let data = '';
 
             resp.on('data', (chunk) => {
