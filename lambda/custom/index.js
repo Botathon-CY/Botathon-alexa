@@ -4,9 +4,7 @@ const Alexa = require('ask-sdk-core');
 ////////////////////////////////
 // Code for the handlers here //
 ////////////////////////////////
-exports.handler = Alexa.SkillBuilders.custom()
-     .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler)
-     .lambda();
+
 
      const LaunchRequestHandler = {
       canHandle(handlerInput) {
@@ -35,3 +33,7 @@ return handlerInput.responseBuilder
           .getResponse();
   }
 };
+
+exports.handler = Alexa.SkillBuilders.custom()
+     .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler)
+     .lambda();
