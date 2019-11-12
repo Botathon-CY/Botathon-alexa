@@ -168,7 +168,8 @@ function getCurrentSpaces(hospital) {
 
 function getPredictedSpaces(hospital, dateTest, timeTime) {
     return new Promise((resolve, reject) => {
-        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/predict/' + hospital + '/' + dateTest + 'T' + timeTime, (resp) => {
+        console.log('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/predict/' + hospital + '/' + dateTest + 'T' + timeTime);
+        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/predict/' + hospital + '/' + dateTest + 'T0' + timeTime + ':00', (resp) => {
             let data = '';
 
             resp.on('data', (chunk) => {
@@ -176,7 +177,7 @@ function getPredictedSpaces(hospital, dateTest, timeTime) {
             });
             resp.on('end', () => {
                 if (resp.statusCode === 200) {
-
+                    console.log(data);
                     try {
 
                         resolve({
