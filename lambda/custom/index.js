@@ -75,7 +75,7 @@ const HospitalParkingIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'HospitalParkingIntent';
     },
     handle(handlerInput) {
-        const speechText = 'There is a car park';
+        const speechText = 'There is a car park ' + getSlotValue(handlerInput.requestEnvelope, 'hospital');
         return handlerInput.responseBuilder
             .speak(speechText)
             .withSimpleCard('Parking', speechText)
