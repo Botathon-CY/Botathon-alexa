@@ -59,8 +59,15 @@
               }},
               {
               "name": {
-                "value": "morriston2"
+                "value": "singleton"
+              }},
+              { "name": {
+                "value": "glangwili"
+              }},
+              { "name": {
+                "value": "prince phillip"
               }}
+              
             
           ]
       }
