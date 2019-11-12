@@ -55,9 +55,13 @@
             "name": "LIST_OF_HOSPITALS",
             "values": [{
               "name": {
-                "value": "singleton"
-              }
-            }
+                "value": "morriston"
+              }},
+              {
+              "name": {
+                "value": "morriston2"
+              }}
+            
           ]
       }
           ]
