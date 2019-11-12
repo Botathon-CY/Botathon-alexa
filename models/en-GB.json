@@ -11,8 +11,8 @@
         {
           "name": "AMAZON.RepeatIntent",
           "samples": [
-            "where am I",
-            "describe the room"
+            "where is the nearest space",
+            "describe the space"
           ]
         },
         {
@@ -28,6 +28,19 @@
           "name": "RestartGame",
           "samples": [
             "new game"
+          ]
+        },
+        {
+          "name": "HelloWorldIntent",
+          "slots": [],
+          "samples": [
+            "how are you",
+            "hi",
+            "say hi world",
+            "say hi",
+            "hello",
+            "say hello world",
+            "say hello"
           ]
         },
         {
