@@ -4,7 +4,7 @@ const Alexa = require('alexa-sdk');
 const story = 'Escape the Office.html';
 const TableName = null // story.replace('.html','').replace(/\s/g, "-");
 var $twine = null;
-const linksRegex = /\[\[([^\|\]]*)\|?([^\]]*)\]\]/g;
+const linksRegex = /\[\[([^|\]]*)\|?([^\]]*)]]/g;
 
 module.exports.handler = (event, context, callback) => {
   console.log(`handler: ${JSON.stringify(event.request)}`);
