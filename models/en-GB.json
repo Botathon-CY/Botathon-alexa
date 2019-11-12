@@ -29,6 +29,20 @@
                   ]
               },
               {
+                "name": "HospitalParkingIntent",
+                "slots": [{
+                  "name": "hospital",
+                  "type": "LIST_OF_HOSPITALS"
+                }],
+                "samples": [
+                    "i want to park at {hospital}",
+                    "is there parking at {hospital}",
+                    "is there a parking space at {hospital}",
+                    "can i park at {hospital}",
+                    "how many spaces in {hospital}"
+                ]
+             },
+              {
                   "name": "AMAZON.NavigateHomeIntent",
                   "samples": []
               },
@@ -37,7 +51,16 @@
                   "samples": []
               }
           ],
-          "types": []
+          "types": [{
+            "name": "LIST_OF_HOSPITALS",
+            "values": [{
+              "name": {
+                "value": "singleton"
+              }
+            }
+          ]
       }
+          ]
   }
+}
 }

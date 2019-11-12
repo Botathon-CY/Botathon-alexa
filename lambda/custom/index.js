@@ -34,6 +34,20 @@ const HelloWorldIntentHandler = {
     }
 };
 
+const HospitalParkingHandler = {
+  canHandle(handlerInput) {
+      return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+          && handlerInput.requestEnvelope.request.intent.name === 'HospitalParkingIntent';
+  },
+  handle(handlerInput) {
+      const speechText = 'There is a car park';
+      return handlerInput.responseBuilder
+          .speak(speechText)
+          .withSimpleCard('Parking', speechText)
+          .getResponse();
+  }
+};
+
 const ErrorHandler = {
     canHandle() {
         return true;
