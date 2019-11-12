@@ -189,10 +189,9 @@ function decodePredictiveParkingResponseSpeech(jsonData) {
     const time = dateTime.split("T")[1];
 
     const dateSpeech = `<say-as interpret-as="date" format="ymd">` + date + `</say-as>`;
-    const timeSpeech = `<say-as interpret-as="time" format="hms24">` + time + `</say-as>`;
 
     if (totalSpaces === 0) {
-        return "I am " + formatPercentageSpeech(confidence) + " confident all car parking spaces will be full at " + hospitalName + " hospital at " + timeSpeech + " on " + dateSpeech;
+        return "I am " + formatPercentageSpeech(confidence) + " confident all car parking spaces will be full at " + hospitalName + " hospital at " + time + " on " + dateSpeech;
     }
 
     let areaSpeech = "";
