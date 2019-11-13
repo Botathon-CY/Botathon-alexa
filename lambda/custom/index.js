@@ -97,7 +97,9 @@ const ErrorHandler = {
 
 function getCurrentSpaces(hospital) {
     return new Promise((resolve, reject) => {
-        https.get('https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/current/' + hospital, (resp) => {
+        const url = 'https://i2yv4ll3q7.execute-api.eu-west-1.amazonaws.com/hack/space/current/' + hospital;
+        console.log(url);
+        https.get(url, (resp) => {
             let data = '';
 
             resp.on('data', (chunk) => {
@@ -111,10 +113,10 @@ function getCurrentSpaces(hospital) {
                             "text": decodeParkingResponseText(JSON.parse(data))
                         });
                     } catch (e) {
-                        reject({"message": "I'm having trouble understanding the response. Please try again later."});
+                        reject(e);
                     }
                 }
-                reject(e);
+                reject({"message": "I'm having trouble understanding the response. Please try again later."});
             });
         }).on("error", (err) => {
             reject(err);
@@ -209,7 +211,7 @@ function decodePredictiveParkingResponseSpeech(jsonData) {
 function decodeParkingResponseText(jsonData) {
     let hospitalName = jsonData.name;
     hospitalName = hospitalName[0].toUpperCase() + hospitalName.slice(1);
-    const areas = jsonData.parking_area;
+    const areas = jsonData.parking_areas;
     const totalSpaces = jsonData.total_space;
 
     if (totalSpaces === 0) {
