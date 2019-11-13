@@ -71,11 +71,6 @@ const HospitalPredictParkingIntentHandler = {
                 ErrorHandler.handle(handlerInput, err);
             });
 
-        console.log("Got here");
-        console.log(speechOutput);
-        console.log(textOutput.name);
-        console.log(textOutput.text);
-
         return handlerInput.responseBuilder
             .speak(speechOutput)
             .withSimpleCard(textOutput.name + " hospital", textOutput.text)
