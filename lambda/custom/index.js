@@ -197,7 +197,7 @@ function decodePredictiveParkingResponseSpeech(jsonData) {
         });
     }
 
-    let speechOutput = "In " + hospitalName + " hospital on " + dateSpeech + " at " + timeSpeech + ", I am " + formatPercentageSpeech(confidence) + " confident there will be " + spacesToText(totalSpaces) + " remaining.\n\n" + areaSpeech;
+    let speechOutput = "In " + hospitalName + " hospital on " + dateSpeech + " at " + time + ", I am " + formatPercentageSpeech(confidence) + " confident there will be " + spacesToText(totalSpaces) + " remaining.\n\n" + areaSpeech;
 
     if (reason) {
         speechOutput = speechOutput + "\n\nPlease note: " + reason;
@@ -235,7 +235,7 @@ function decodeParkingResponseText(jsonData) {
 function decodePredictiveParkingResponseText(jsonData) {
     let hospitalName = jsonData.name;
     hospitalName = hospitalName[0].toUpperCase() + hospitalName.slice(1);
-    const areas = jsonData.parking_areas;
+    const areas = jsonData.parking_area;
     const totalSpaces = jsonData.predicted_space;
     const dateTime = jsonData.time;
     const confidence = jsonData.confidence;
